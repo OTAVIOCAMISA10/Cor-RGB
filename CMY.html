@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplo de Modelo CMY</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    #colorBox {
+      width: 200px;
+      height: 200px;
+      margin: 20px auto;
+      border: 1px solid #000;
+    }
+    .slider-container {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Modelo de Cor CMY</h1>
+  <div id="colorBox"></div>
+
+  <div class="slider-container">
+    <label for="cyan">Ciano (C): <span id="cyanValue">0</span></label><br>
+    <input type="range" id="cyan" min="0" max="100" value="0">
+  </div>
+
+  <div class="slider-container">
+    <label for="magenta">Magenta (M): <span id="magentaValue">0</span></label><br>
+    <input type="range" id="magenta" min="0" max="100" value="0">
+  </div>
+
+  <div class="slider-container">
+    <label for="yellow">Amarelo (Y): <span id="yellowValue">0</span></label><br>
+    <input type="range" id="yellow" min="0" max="100" value="0">
+  </div>
+
+  <script>
+    const colorBox = document.getElementById('colorBox');
+    const cyanSlider = document.getElementById('cyan');
+    const magentaSlider = document.getElementById('magenta');
+    const yellowSlider = document.getElementById('yellow');
+    const cyanValue = document.getElementById('cyanValue');
+    const magentaValue = document.getElementById('magentaValue');
+    const yellowValue = document.getElementById('yellowValue');
+
+    function updateColor() {
+      // Obtém os valores CMY dos sliders
+      const c = cyanSlider.value / 100;
+      const m = magentaSlider.value / 100;
+      const y = yellowSlider.value / 100;
+
+      // Converte CMY para RGB
+      const r = Math.round((1 - c) * 255);
+      const g = Math.round((1 - m) * 255);
+      const b = Math.round((1 - y) * 255);
+
+      // Atualiza os valores CMY no texto
+      cyanValue.textContent = (c * 100).toFixed(0);
+      magentaValue.textContent = (m * 100).toFixed(0);
+      yellowValue.textContent = (y * 100).toFixed(0);
+
+      // Atualiza a cor da caixa
+      colorBox.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+    }
+
+    // Adiciona eventos para atualizar a cor ao mover os sliders
+    cyanSlider.addEventListener('input', updateColor);
+    magentaSlider.addEventListener('input', updateColor);
+    yellowSlider.addEventListener('input', updateColor);
+
+    // Atualiza a cor ao carregar a página
+    updateColor();
+  </script>
+</body>
+</html>
